@@ -16,7 +16,7 @@ namespace TimeForCoffee.Models
 
         public virtual Location Location { get; set; }
 
-        public ICollection<Barista> Baristas { get; set; }
+        public ICollection<CafeBarista> Baristas { get; set; }
 
     }
 }

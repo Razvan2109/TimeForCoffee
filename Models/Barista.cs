@@ -12,7 +12,7 @@ namespace TimeForCoffee.Models
     
         public string Speciality { get; set; }
 
-        public ICollection<Cafe> Cafes { get; set; }
+        public ICollection<CafeBarista> Cafes { get; set; }
     
     }
 }
