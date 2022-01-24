@@ -45,5 +45,15 @@ namespace TimeForCoffee.Repository.UserRepository
 
             return queryResult.ToList();
         }
+
+        public User GetByUsernameAndPassword(string username, string password)
+        {
+            var queryResult = (from u in _table
+                               where (u.Username.ToLower().Equals(username.ToLower())
+                               && u.Password.Equals(password))
+                               select u).FirstOrDefault();
+            
+            return queryResult;
+        }
     }
 }

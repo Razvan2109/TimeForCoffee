@@ -27,7 +27,8 @@ namespace TimeForCoffee.Services
                 LastName = toCreate.lastName,
                 Email = toCreate.email,
                 Password = toCreate.password,
-                DateCreated=DateTime.Now
+                DateCreated=DateTime.Now,
+                Role="User"
             };
 
           
@@ -86,6 +87,13 @@ namespace TimeForCoffee.Services
             }
 
             return users;
+        }
+
+        public User GetCredentials(string username, string password)
+        {
+            User user = _userRepository.GetByUsernameAndPassword(username, password);
+
+            return user;
         }
 
         public UserDTO GetUserMappedByUsername(string name)

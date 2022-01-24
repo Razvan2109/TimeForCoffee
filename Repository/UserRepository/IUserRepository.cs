@@ -13,6 +13,8 @@ namespace TimeForCoffee.Repository.UserRepository
         User GetByUsernameIncludingReviews(string username);
         List<User> GetAllWithReviews_Include();
         List<User> GetAllWithReviews_Join();
+
+        User GetByUsernameAndPassword(string username, string password);
        
     }
 

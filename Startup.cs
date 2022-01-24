@@ -19,6 +19,9 @@ using TimeForCoffee.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 using TimeForCoffee.Repository.LocationRepository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace TimeForCoffee
 {
@@ -35,8 +38,24 @@ namespace TimeForCoffee
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
+            
             services.AddDbContext<TimeForCoffeeContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("TimeForCoffeeConnection")));
 
+           // services.AddMvc();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -67,6 +86,7 @@ namespace TimeForCoffee
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
