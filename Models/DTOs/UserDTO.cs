@@ -12,5 +12,7 @@ namespace TimeForCoffee.Models.DTOs
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+        
+        
     }
 }

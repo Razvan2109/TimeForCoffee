@@ -14,6 +14,7 @@ namespace TimeForCoffee.Models
 
         public ICollection<Review> Reviews { get; set; }
 
+        public Guid LocationId { get; set; }
         public virtual Location Location { get; set; }
 
         public ICollection<CafeBarista> Baristas { get; set; }

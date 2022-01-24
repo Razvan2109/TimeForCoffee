@@ -19,7 +19,11 @@ namespace TimeForCoffee.Repository.UserRepository
 
         public User GetByUsername(string username)
         {
-            return _table.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
+
+            var QueryResult = (from u in _table
+                               where u.Username.ToLower().Equals(username.ToLower())
+                               select u).FirstOrDefault();
+            return QueryResult;
         }
 
         public User GetByUsernameIncludingReviews(string username)

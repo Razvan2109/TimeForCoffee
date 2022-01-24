@@ -18,9 +18,100 @@ namespace TimeForCoffee.Services
             _userRepository = userRepository;
         }
 
+        public UserDTO CreateUser(UserDtoCreate toCreate)
+        {
+            User user = new User
+            {
+                Username = toCreate.username,
+                FirstName = toCreate.firstName,
+                LastName = toCreate.lastName,
+                Email = toCreate.email,
+                Password = toCreate.password,
+                DateCreated=DateTime.Now
+            };
+
+          
+
+            _userRepository.Create(user);
+
+            _userRepository.Save();
+
+            UserDTO userDTO = new UserDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username
+            };
+
+            return userDTO;
+
+
+
+        }
+
+        public UserDTO DeleteByUsername(string name)
+        {
+            User toDelete = _userRepository.GetByUsername(name);
+            _userRepository.Delete(toDelete);
+
+            _userRepository.Save();
+
+            UserDTO result = new UserDTO
+            {
+                Username = toDelete.Username,
+                FirstName = toDelete.FirstName,
+                LastName = toDelete.LastName
+
+            };
+
+            return result;
+
+
+        }
+
+        public List<UserDTO> GetAllUsers()
+        {
+            List<UserDTO> users=new List<UserDTO>();
+            List<User> usersDetailed= _userRepository.GetAll().Result;
+
+            foreach(User user in usersDetailed)
+            {
+                UserDTO userDTO = new UserDTO
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Username = user.Username
+                };
+                users.Add(userDTO);
+            }
+
+            return users;
+        }
+
         public UserDTO GetUserMappedByUsername(string name)
         {
             User user = _userRepository.GetByUsername(name);
+
+            UserDTO result = new UserDTO
+            {
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+
+            };
+
+            return result;
+        }
+
+        public UserDTO UpdateUserName(string username,string firstName,string lastName)
+        {
+            User user = _userRepository.GetByUsername(username);
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+
+            _userRepository.Update(user);
+            _userRepository.Save();
 
             UserDTO result = new UserDTO
             {

@@ -10,5 +10,13 @@ namespace TimeForCoffee.Services
     {
 
         UserDTO GetUserMappedByUsername(string name);
+
+        UserDTO CreateUser(UserDtoCreate toCreate);
+
+        List<UserDTO> GetAllUsers();
+
+        UserDTO DeleteByUsername(string name);
+
+        UserDTO UpdateUserName(string username,string firstName, string lastName);
     }
 }

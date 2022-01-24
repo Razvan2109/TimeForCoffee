@@ -29,7 +29,7 @@ namespace TimeForCoffee.Data
             modelBuilder.Entity<Cafe>()
                 .HasOne(c => c.Location)
                 .WithOne(l => l.Cafe)
-                .HasForeignKey<Location>(l => l.Id);
+                .HasForeignKey<Cafe>(c => c.LocationId);
 
             
             //one-to-many

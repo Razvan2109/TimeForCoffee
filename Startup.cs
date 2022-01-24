@@ -13,9 +13,11 @@ using System.Threading.Tasks;
 using TimeForCoffee.Data;
 using Microsoft.EntityFrameworkCore;
 using TimeForCoffee.Repository.UserRepository;
+using TimeForCoffee.Repository.CafeRepository;
 using TimeForCoffee.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
+using TimeForCoffee.Repository.LocationRepository;
 
 namespace TimeForCoffee
 {
@@ -43,6 +45,9 @@ namespace TimeForCoffee
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICafeRepository, CafeRepository>();
+            services.AddTransient<ICafeService, CafeService>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +56,8 @@ namespace TimeForCoffee
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TimeForCoffee v1"));
             }
 
             app.UseHttpsRedirection();

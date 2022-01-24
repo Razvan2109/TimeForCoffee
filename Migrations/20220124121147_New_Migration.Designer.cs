@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeForCoffee.Data;
 
 namespace TimeForCoffee.Migrations
 {
     [DbContext(typeof(TimeForCoffeeContext))]
-    partial class TimeForCoffeeContextModelSnapshot : ModelSnapshot
+    [Migration("20220124121147_New_Migration")]
+    partial class New_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +70,6 @@ namespace TimeForCoffee.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LocationId")
-                        .IsUnique();
 
                     b.ToTable("Cafes");
                 });
@@ -184,17 +183,6 @@ namespace TimeForCoffee.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TimeForCoffee.Models.Cafe", b =>
-                {
-                    b.HasOne("TimeForCoffee.Models.Location", "Location")
-                        .WithOne("Cafe")
-                        .HasForeignKey("TimeForCoffee.Models.Cafe", "LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
-                });
-
             modelBuilder.Entity("TimeForCoffee.Models.CafeBarista", b =>
                 {
                     b.HasOne("TimeForCoffee.Models.Barista", "Barista")
@@ -210,6 +198,17 @@ namespace TimeForCoffee.Migrations
                         .IsRequired();
 
                     b.Navigation("Barista");
+
+                    b.Navigation("Cafe");
+                });
+
+            modelBuilder.Entity("TimeForCoffee.Models.Location", b =>
+                {
+                    b.HasOne("TimeForCoffee.Models.Cafe", "Cafe")
+                        .WithOne("Location")
+                        .HasForeignKey("TimeForCoffee.Models.Location", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cafe");
                 });
@@ -242,12 +241,9 @@ namespace TimeForCoffee.Migrations
                 {
                     b.Navigation("Baristas");
 
-                    b.Navigation("Reviews");
-                });
+                    b.Navigation("Location");
 
-            modelBuilder.Entity("TimeForCoffee.Models.Location", b =>
-                {
-                    b.Navigation("Cafe");
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("TimeForCoffee.Models.User", b =>
