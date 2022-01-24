@@ -15,6 +15,7 @@ namespace TimeForCoffee.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Barista> Baristas { get; set; }
+        public DbSet<CafeBarista> CafeBaristas { get; set; }
 
         public TimeForCoffeeContext(DbContextOptions<TimeForCoffeeContext> options):base(options)
         {
