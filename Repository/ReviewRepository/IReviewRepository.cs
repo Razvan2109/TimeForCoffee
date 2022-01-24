@@ -11,7 +11,12 @@ namespace TimeForCoffee.Repository.ReviewRepository
     {
         List<Review> GetReviewsWithGreaterRating(int rating);
 
-        public List<Review> GetReviewsWithPlaceAndUser(int rating);
+        List<Review> GetAllReviewsForCafe(string cafe);
+
+        public List<Review> GetReviewsWithPlaceAndUser();
+
+        public List<Review> GetReviewsByUserToCafe(string name, string cafe);
+
 
     }
 }

@@ -36,12 +36,60 @@ namespace TimeForCoffee.Controllers
             }
         }
 
-        [HttpPost("DeleteCafe")]
-        publicIactionResult DeleteCafeByName(string toDelete)
+        [HttpDelete("DeleteCafe")]
+        public IActionResult DeleteCafeByName(string toDelete)
         {
             try
             {
                 var result = _cafeServices.DeleteCafeByName(toDelete);
+                return Ok(result);
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetCafesByRating")]
+        public IActionResult GetCafesByRating(float minRating)
+        {
+            try
+            {
+                var result = _cafeServices.GetCafesByRating(minRating);
+                return Ok(result);
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("UpdateLocation")]
+        public IActionResult UpdateCafeLocation(string name,string newAddress)
+        {
+            try
+            {
+                var result = _cafeServices.UpdateCafeLocation(name, newAddress);
+                return Ok(result);
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("ChangeCafeName")]
+        public IActionResult ChangeCafeName(string oldName, string newName)
+        {
+            try
+            {
+                var result = _cafeServices.ChangeCafeName(oldName, newName);
                 return Ok(result);
 
 

@@ -14,6 +14,7 @@ using TimeForCoffee.Data;
 using Microsoft.EntityFrameworkCore;
 using TimeForCoffee.Repository.UserRepository;
 using TimeForCoffee.Repository.CafeRepository;
+using TimeForCoffee.Repository.ReviewRepository;
 using TimeForCoffee.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
@@ -48,6 +49,8 @@ namespace TimeForCoffee
             services.AddTransient<ICafeRepository, CafeRepository>();
             services.AddTransient<ICafeService, CafeService>();
             services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IReviewRepository, ReviewRepository>();
+            services.AddTransient<IReviewService, ReviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -22,6 +22,27 @@ namespace TimeForCoffee.Services
             _locationRepository = locationRepository;
         }
 
+        public CafeSimpleDTO ChangeCafeName(string oldName, string newName)
+        {
+            Cafe cafe = _cafeRepository.GetByName(oldName);
+
+            cafe.Name = newName;
+
+            _cafeRepository.Update(cafe);
+            _cafeRepository.Save();
+
+            Location loc = _locationRepository.FindById(cafe.LocationId);
+            CafeSimpleDTO cafeDto = new CafeSimpleDTO
+            {
+                Name = cafe.Name,
+                Rating = cafe.Rating,
+                Address = loc.Address,
+                Country = loc.Country
+            };
+
+            return cafeDto;
+        }
+
         public CafeSimpleDTO CreateCafe(CafeSimpleDTO cafeToCreate)
         {
 
@@ -60,6 +81,79 @@ namespace TimeForCoffee.Services
             return cafe;
 
 
+
+        }
+
+        public CafeSimpleDTO DeleteCafeByName(string name)
+        {
+            Cafe toDelete = _cafeRepository.GetByName(name);
+
+            Guid locationId = toDelete.LocationId;
+
+            Location locToDelete= _locationRepository.FindById(locationId);
+
+            CafeSimpleDTO cafe = new CafeSimpleDTO
+            {
+                Name = toDelete.Name,
+                Rating = toDelete.Rating,
+                Address = locToDelete.Address,
+                Country = locToDelete.Country
+            };
+
+            _locationRepository.Delete(locToDelete);
+            _locationRepository.Save();
+
+           /* _cafeRepository.Delete(toDelete);
+            _cafeRepository.Save();*/
+            
+
+            
+            return cafe;
+        }
+
+        public List<CafeSimpleDTO> GetCafesByRating(float minRating)
+        {
+            List<CafeSimpleDTO> sortedCafes = new List<CafeSimpleDTO>();
+            List<Cafe> unsortedCafes = _cafeRepository.GetAll().Result;
+            foreach(Cafe cafe in unsortedCafes)
+            {
+                if (cafe.Rating >= minRating)
+                {
+                    Location location = _locationRepository.FindById(cafe.LocationId);
+                    CafeSimpleDTO placeholder = new CafeSimpleDTO
+                    {
+                        Name = cafe.Name,
+                        Rating = cafe.Rating,
+                        Address = location.Address,
+                        Country = location.Country
+                    };
+
+                    sortedCafes.Add(placeholder);
+                }
+            }
+
+            return sortedCafes;
+        }
+
+        public CafeSimpleDTO UpdateCafeLocation(string name, string newAddress)
+        {
+            Cafe cafe = _cafeRepository.GetByName(name);
+            Location cafeLocation = _locationRepository.FindById(cafe.LocationId);
+
+            cafeLocation.Address = newAddress;
+            
+            _locationRepository.Update(cafeLocation);
+            _locationRepository.Save();
+
+            CafeSimpleDTO cafeDto = new CafeSimpleDTO
+            {
+                Name = cafe.Name,
+                Rating = cafe.Rating,
+                Address = cafeLocation.Address,
+                Country = cafeLocation.Country
+            };
+
+            return cafeDto;
 
         }
     }
