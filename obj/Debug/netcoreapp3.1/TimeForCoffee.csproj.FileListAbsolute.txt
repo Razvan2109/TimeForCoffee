@@ -70,3 +70,8 @@ D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\runtimes\win-x64\native
 D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Asp.Net Project\TimeForCoffee\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Asp.Net Project\TimeForCoffee\obj\Debug\netcoreapp3.1\TimeForCoffee.MvcApplicationPartsAssemblyInfo.cs

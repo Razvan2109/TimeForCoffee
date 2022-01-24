@@ -12,6 +12,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using TimeForCoffee.Data;
 using Microsoft.EntityFrameworkCore;
+using TimeForCoffee.Repository.UserRepository;
+using TimeForCoffee.Services;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.OpenApi.Models;
 
 namespace TimeForCoffee
 {
@@ -31,6 +35,14 @@ namespace TimeForCoffee
             services.AddDbContext<TimeForCoffeeContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("TimeForCoffeeConnection")));
 
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TimeForCoffee", Version = "v1" });
+            });
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
