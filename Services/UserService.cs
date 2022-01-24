@@ -27,7 +27,7 @@ namespace TimeForCoffee.Services
                 FirstName = toCreate.firstName,
                 LastName = toCreate.lastName,
                 Email = toCreate.email,
-                Password = toCreate.password,
+                Password = BCrypt.Net.BCrypt.HashPassword(toCreate.password),
                 DateCreated=DateTime.Now,
                 Role="User"
             };

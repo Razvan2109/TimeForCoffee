@@ -49,11 +49,17 @@ namespace TimeForCoffee.Repository.UserRepository
         public User GetByUsernameAndPassword(string username, string password)
         {
             var queryResult = (from u in _table
-                               where (u.Username.ToLower().Equals(username.ToLower())
-                               && u.Password.Equals(password))
+                               where u.Username.ToLower().Equals(username.ToLower())
                                select u).FirstOrDefault();
-            
-            return queryResult;
+
+           if( BCrypt.Net.BCrypt.Verify(password, queryResult.Password))
+            {
+                return queryResult;
+            }
+
+            return null;
+
+
         }
     }
 }
