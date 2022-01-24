@@ -22,6 +22,6 @@ namespace TimeForCoffee.Services
 
         User GetCredentials(string username, string password);
 
-        
+      
     }
 }

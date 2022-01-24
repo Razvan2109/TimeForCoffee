@@ -46,6 +46,14 @@ namespace TimeForCoffee.Controllers
             return NotFound("User not found");
         }
 
+        [HttpGet("AdminPage")]
+        [Authorize(Roles="Admin")]
+        public IActionResult AdminPage()
+        {
+            var current = GetCurrent();
+            return Ok($"Hello! You are an { current.Role}, so you can access this page.");
+        }
+
         private string GenerateToken(User user)
         {
             var secKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -78,6 +86,27 @@ namespace TimeForCoffee.Controllers
                 return current;
             }
 
+            return null;
+        }
+
+
+        private User GetCurrent()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var claims = identity.Claims;
+                return new User
+                {
+                    Username = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+                    Email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+                    FirstName = claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value,
+                    LastName = claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value,
+                    Role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value
+                };
+
+
+            }
             return null;
         }
 
