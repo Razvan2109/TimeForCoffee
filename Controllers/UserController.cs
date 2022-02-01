@@ -41,7 +41,9 @@ namespace TimeForCoffee.Controllers
             if(user != null)
             {
                 var tokenStr = GenerateToken(user);
-                return Ok(tokenStr);
+                var result = _userServices.LoginUser(login.Username,login.Password) ;
+                result.Token = tokenStr;
+                return Ok(result);
             }
             return NotFound("User not found");
         }

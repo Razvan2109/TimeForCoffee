@@ -113,6 +113,21 @@ namespace TimeForCoffee.Services
             return result;
         }
 
+        public LoginResponseDTO LoginUser(string username, string password)
+        {
+            User user = _userRepository.GetByUsernameAndPassword(username, password);
+
+            LoginResponseDTO result = new LoginResponseDTO
+            {
+                Username = user.Username,
+                FirstName=user.FirstName,
+                LastName=user.LastName,
+                Token = ""
+            };
+
+            return result;
+        }
+
         public UserDTO UpdateUserName(string username,string firstName,string lastName)
         {
             User user = _userRepository.GetByUsername(username);
